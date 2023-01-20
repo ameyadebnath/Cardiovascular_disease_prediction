@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Cardiovascular Disease Prediction</title>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='diabetes-favicon.ico') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+        <script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <!-- Website Title -->
+    	<div class="container">
+            <h2 class='container-heading'><span class="heading_font">Cardiovascular Disease Prediction</span></h2>
+            <div class='description'>
+    			<p>A Machine Learning Web App, Built with Flask, Deployed using Heroku.</p>
+    		</div>
+    	</div>
+
+        <!-- Text Area -->
+    	<div class="ml-container">
+    		<form action="{{ url_for('predict') }}" method="POST">
+		<br><input class="form-input" type="text" name="age" placeholder="Enter your age" style="text-align:left;"/><br>
+		<select name="gender" class ="form-input" type="text"><br>
+			<option disabled selected>Specify your gender</option>
+                	<option value="Male">Male</option>
+                	<option value="Female">Female</option>
+		</select>
+		<br><input class="form-input" type="text" name="height" placeholder="Enter your height (in cm) eg. 172 " style="text-align:left;"/><br>
+		<input class="form-input" type="text" name="weight" placeholder="Enter your height (in Kg) " style="text-align:left;"/><br>
+		<input class="form-input" type="text" name="ap_hi" placeholder="Systolic Blood Pressure (upper number)" style="text-align:left;"/><br>
+		<input class="form-input" type="text" name="ap_lo" placeholder="Diastolic Blood Pressure (lower number)" style="text-align:left;"/><br>
+		<select name="cholesterol" class ="form-input" type="text"><br>
+			<option disabled selected>Select level of cholesterol</option>
+                	<option value="normal">Normal</option>
+                	<option value="above normal">Above Normal</option>
+			<option value="well above normal">Well Above Normal</option>
+		</select>
+		<br><select name="gluc" class ="form-input" type="text"><br>
+			<option disabled selected>Select Level of Glucose</option>
+                	<option value="normal">Normal</option>
+                	<option value="above normal">Above Normal</option>
+			<option value="well above normal">Well Above Normal</option>
+		</select>
+		<br><select name="smoke" class ="form-input" type="text"><br>
+			<option disabled selected>Do you Smoke?</option>
+                	<option value="yes">Yes</option>
+                	<option value="no">No</option>
+		</select>
+		<br><select name="alco" class ="form-input" type="text"><br>
+			<option disabled selected>Do you Drink Alcohol?</option>
+                	<option value="yes">Yes</option>
+                	<option value="no">No</option>
+		</select>
+		<br><select name="active" class ="form-input" type="text"><br>
+			<option disabled selected>Do you Workout?</option>
+                	<option value="yes">Yes</option>
+                	<option value="no">No</option>
+		</select>
+			<br><input type="submit" class="my-cta-button" value="Predict">
+            		
+        	</form>
+    	</div>
+
+    </body>
+</html>
