@@ -1,68 +1,104 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+ 
 
-<html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>Cardiovascular Disease Prediction</title>
-        <link rel="shortcut icon" href="{{ url_for('static', filename='diabetes-favicon.ico') }}">
-        <link rel="stylesheet" href="styles.css">
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-        <script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script>
-        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    </head>
+        
+          <div class="header">
+            <h1"">Disease <span style="color: red;">Prediction</span></h1>
+          </div>
 
-    <body>
+        <div class="container"> 
+          <form class="form-style">
+            <div class="fromdiv">
+              <label htmlFor="">Enter Your Age: </label>
+              <input type="text" name="age" class="inputfield"/>
+            </div>
+            
+            <div class="fromdiv">
+              <label htmlFor="">Gender: </label>
+              <input type="radio" name="gender" value="male" class="radiobutton" /> <label for="male">Male</label>
+              <input type="radio" name="gender" value="female" class="radiobutton" /> <label for="female">Female</label>
+            </div>
+            
 
-        <!-- Website Title -->
-    	<div class="container">
-            <h2 class='container-heading'><span class="heading_font">Cardiovascular Disease Prediction</span></h2>
+              <div class="fromdiv">
+                <label htmlFor="">Enter your height(in cm): </label>
+                <input type="text" class="inputfield"/>
+              </div>
 
-    	</div>
+              <div class="fromdiv">
+                <label htmlFor="">Enter Your Weight(in kg): </label>
+                <input type="text" class="inputfield" />
+              </div>
 
-        <!-- Text Area -->
-    	<div class="ml-container">
-    		<form action="{{ url_for('predict') }}" method="POST">
-		<br><input class="form-input" type="text" name="age" placeholder="Enter your age" style="text-align:left;"/><br>
-		<select name="gender" class ="form-input" type="text"><br>
-			<option disabled selected>Specify your gender</option>
-                	<option value="Male">Male</option>
-                	<option value="Female">Female</option>
-		</select>
-		<br><input class="form-input" type="text" name="height" placeholder="Enter your height (in cm) eg. 172 " style="text-align:left;"/><br>
-		<input class="form-input" type="text" name="weight" placeholder="Enter your height (in Kg) " style="text-align:left;"/><br>
-		<input class="form-input" type="text" name="ap_hi" placeholder="Systolic Blood Pressure (upper number)" style="text-align:left;"/><br>
-		<input class="form-input" type="text" name="ap_lo" placeholder="Diastolic Blood Pressure (lower number)" style="text-align:left;"/><br>
-		<select name="cholesterol" class ="form-input" type="text"><br>
-			<option disabled selected>Select level of cholesterol</option>
-                	<option value="normal">Normal</option>
-                	<option value="above normal">Above Normal</option>
-			<option value="well above normal">Well Above Normal</option>
-		</select>
-		<br><select name="gluc" class ="form-input" type="text"><br>
-			<option disabled selected>Select Level of Glucose</option>
-                	<option value="normal">Normal</option>
-                	<option value="above normal">Above Normal</option>
-			<option value="well above normal">Well Above Normal</option>
-		</select>
-		<br><select name="smoke" class ="form-input" type="text"><br>
-			<option disabled selected>Do you Smoke?</option>
+              <div class="fromdiv">
+                <label htmlFor="">Systolic Blood Pressure (upper number): </label>
+                <input type="text" class="inputfield" />
+              </div>
+            <div class="fromdiv">
+              <label htmlFor="">Disatolic Blood Pressure (lower number): </label>
+              <input type="text"  class="inputfield" />
+            </div>
+
+            
+            <div class="fromdiv">
+              <label htmlFor="" class="">Select level of Cholesterol </label>
+              <select name="Select level of cholesterol" id="" class="selectfield">
+                  <option value="normal">Normal</option>
+                  <option value="above">Above Normal</option>
+                  <option value="well above normal">Well Above Normal</option>
+              </select>
+            </div>
+            <div class="fromdiv">
+              <label htmlFor="">Select Level of Gluocose </label>
+              <select name="" id="" class="selectfield">
+                <option value="normal">Normal</option>
+                <option value="above">Above Normal</option>
+                <option value="well above normal">Well Above Normal</option>
+              </select>
+            </div>
+            <div class="fromdiv">
+                <label for="">Do you Smoke? </label>
+                <select name="smoke" class ="selectfield" type="text">
+                  <!-- <option disabled selected>Do you Smoke?</option> -->
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+            </div>
+
+            <div class="fromdiv">
+                <label for="">Do you Drink Alcohol? </label>
+                <select name="alco" class ="selectfield" type="text">
+			            <!-- <option disabled selected>Do you Drink Alcohol?</option> -->
+                	    <option value="yes">Yes</option>
+                	    <option value="no">No</option>
+		          </select>
+            </div>
+
+            <div class="fromdiv">
+                <label for="">Do you Workout? </label>
+                <select name="active" class ="selectfield" type="text">
+			            <!-- <option disabled selected>Do you Workout?</option> -->
                 	<option value="yes">Yes</option>
                 	<option value="no">No</option>
-		</select>
-		<br><select name="alco" class ="form-input" type="text"><br>
-			<option disabled selected>Do you Drink Alcohol?</option>
-                	<option value="yes">Yes</option>
-                	<option value="no">No</option>
-		</select>
-		<br><select name="active" class ="form-input" type="text"><br>
-			<option disabled selected>Do you Workout?</option>
-                	<option value="yes">Yes</option>
-                	<option value="no">No</option>
-		</select>
-			<br><input type="submit" class="my-cta-button" value="Predict">
-            		
-        	</form>
-    	</div>
+		          </select>
+            </div>
+          
+              <input type="button" value="Submit" class="submit" />
+        </form>
 
-    </body>
+        <div class="img-style">
+            <img src="./Cardiologist-amico.png" class="images" alt="">
+        </div>
+    </div>
+</body>
+
 </html>
