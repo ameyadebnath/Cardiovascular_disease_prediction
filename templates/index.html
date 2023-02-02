@@ -1,69 +1,87 @@
-<!DOCTYPE html>
+# Importing essential libraries
+from flask import Flask, render_template, request
+import pickle
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
 
-<html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>Cardiovascular Disease Prediction</title>
-        <link rel="shortcut icon" href="{{ url_for('static', filename='diabetes-favicon.ico') }}">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-        <script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script>
-        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    </head>
+# Load the logistic regression model
+filename = 'classifier.pkl'
+classifier = pickle.load(open(filename, 'rb'))
 
-    <body>
+# Load the standardise data
+filename2 = 'scaler.pkl'
+scaler = pickle.load(open(filename2, 'rb'))
 
-        <!-- Website Title -->
-    	<div class="container">
-            <h2 class='container-heading'><span class="heading_font">Cardiovascular Disease Prediction</span></h2>
-            <div class='description'>
-    			<p>A Machine Learning Web App, Built with Flask, Deployed using Heroku.</p>
-    		</div>
-    	</div>
+app = Flask(__name__)
 
-        <!-- Text Area -->
-    	<div class="ml-container">
-    		<form action="{{ url_for('predict') }}" method="POST">
-		<br><input class="form-input" type="text" name="age" placeholder="Enter your age" style="text-align:left;"/><br>
-		<select name="gender" class ="form-input" type="text"><br>
-			<option disabled selected>Specify your gender</option>
-                	<option value="Male">Male</option>
-                	<option value="Female">Female</option>
-		</select>
-		<br><input class="form-input" type="text" name="height" placeholder="Enter your height (in cm) eg. 172 " style="text-align:left;"/><br>
-		<input class="form-input" type="text" name="weight" placeholder="Enter your height (in Kg) " style="text-align:left;"/><br>
-		<input class="form-input" type="text" name="ap_hi" placeholder="Systolic Blood Pressure (upper number)" style="text-align:left;"/><br>
-		<input class="form-input" type="text" name="ap_lo" placeholder="Diastolic Blood Pressure (lower number)" style="text-align:left;"/><br>
-		<select name="cholesterol" class ="form-input" type="text"><br>
-			<option disabled selected>Select level of cholesterol</option>
-                	<option value="normal">Normal</option>
-                	<option value="above normal">Above Normal</option>
-			<option value="well above normal">Well Above Normal</option>
-		</select>
-		<br><select name="gluc" class ="form-input" type="text"><br>
-			<option disabled selected>Select Level of Glucose</option>
-                	<option value="normal">Normal</option>
-                	<option value="above normal">Above Normal</option>
-			<option value="well above normal">Well Above Normal</option>
-		</select>
-		<br><select name="smoke" class ="form-input" type="text"><br>
-			<option disabled selected>Do you Smoke?</option>
-                	<option value="yes">Yes</option>
-                	<option value="no">No</option>
-		</select>
-		<br><select name="alco" class ="form-input" type="text"><br>
-			<option disabled selected>Do you Drink Alcohol?</option>
-                	<option value="yes">Yes</option>
-                	<option value="no">No</option>
-		</select>
-		<br><select name="active" class ="form-input" type="text"><br>
-			<option disabled selected>Do you Workout?</option>
-                	<option value="yes">Yes</option>
-                	<option value="no">No</option>
-		</select>
-			<br><input type="submit" class="my-cta-button" value="Predict">
-            		
-        	</form>
-    	</div>
 
-    </body>
-</html>
+@app.route('/')
+def home():
+    # return render_template('index.html')
+    return render_template('landingPage.html')
+
+@app.route('/form')
+def form():
+    return render_template('index.html')
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    if request.method == 'POST':
+        age = int(request.form['age'])
+        gender = request.form['gender']
+        height = int(request.form['height'])
+        weight = int(request.form['weight'])
+        ap_hi = int(request.form['ap_hi'])
+        ap_lo = int(request.form['ap_lo'])
+        cholesterol = request.form['cholesterol']
+        gluc = request.form['gluc']
+        smoke = request.form['smoke']
+        alco = request.form['alco']
+        active = request.form['active']
+
+        if gender == 'Female':
+            gender = 1
+        else:
+            gender = 2
+
+        if cholesterol == 'Normal':
+            cholesterol = 1
+        elif cholesterol == 'Above normal':
+            cholesterol = 2
+        else:
+            cholesterol = 3
+
+        if gluc == 'Normal':
+            gluc = 1
+        elif gluc == 'Above Normal':
+            gluc = 2
+        else:
+            gluc = 3
+
+        if smoke == 'Yes':
+            smoke = 1
+        else:
+            smoke = 0
+
+        if alco == 'Yes':
+            alco = 1
+        else:
+            alco = 0
+
+        if active == 'Yes':
+            active = 1
+        else:
+            active = 0
+
+        data = np.array([[age, gender, height, weight, ap_hi, ap_lo, cholesterol, gluc, smoke, alco, active]])
+
+        data_s = scaler.transform(data)
+
+        my_prediction = classifier.predict(data_s)
+        return render_template('result.html', prediction=my_prediction)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
