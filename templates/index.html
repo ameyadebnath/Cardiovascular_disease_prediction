@@ -1,87 +1,108 @@
-# Importing essential libraries
-from flask import Flask, render_template, request
-import pickle
-import numpy as np
-import pandas as pd
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-
-# Load the logistic regression model
-filename = 'classifier.pkl'
-classifier = pickle.load(open(filename, 'rb'))
-
-# Load the standardise data
-filename2 = 'scaler.pkl'
-scaler = pickle.load(open(filename2, 'rb'))
-
-app = Flask(__name__)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+ 
 
 
-@app.route('/')
-def home():
-    # return render_template('index.html')
-    return render_template('landingPage.html')
+          <div class="header">
+            <h1>Disease <span style="color: blueviolet;">Prediction</span></h1>
+          </div>
 
-@app.route('/form')
-def form():
-    return render_template('index.html')
+        <div class="container"> 
+			<div class="form_div">
+          <form class="form-style" action="{{ url_for('predict') }}" method="POST">
+            <div class="fromdiv">
+              <label htmlFor="">Enter Your Age: </label>
+              <input  required type="text" name="age" class="inputfield"/>
+            </div>
+            
+            <div class="fromdiv">
+              <label htmlFor="">Gender: </label>
+              <input type="radio" name="gender" value="male" class="radiobutton" required /> <label for="male">Male</label>
+              <input type="radio" name="gender" value="female" class="radiobutton" /> <label for="female">Female</label>
+            </div>
+            
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    if request.method == 'POST':
-        age = int(request.form['age'])
-        gender = request.form['gender']
-        height = int(request.form['height'])
-        weight = int(request.form['weight'])
-        ap_hi = int(request.form['ap_hi'])
-        ap_lo = int(request.form['ap_lo'])
-        cholesterol = request.form['cholesterol']
-        gluc = request.form['gluc']
-        smoke = request.form['smoke']
-        alco = request.form['alco']
-        active = request.form['active']
+              <div class="fromdiv">
+                <label htmlFor="">Enter your height(in cm): </label>
+                <input type="text" required name="height" class="inputfield"/>
+              </div>
 
-        if gender == 'Female':
-            gender = 1
-        else:
-            gender = 2
+              <div class="fromdiv">
+                <label htmlFor="">Enter Your Weight(in kg): </label>
+                <input type="text"  required name="weight" class="inputfield" />
+              </div>
 
-        if cholesterol == 'Normal':
-            cholesterol = 1
-        elif cholesterol == 'Above normal':
-            cholesterol = 2
-        else:
-            cholesterol = 3
+              <div class="fromdiv">
+                <label htmlFor="">Systolic Blood Pressure (upper number): </label>
+                <input type="text" name="ap_hi" required class="inputfield" />
+              </div>
+            <div class="fromdiv">
+              <label htmlFor="">Disatolic Blood Pressure (lower number): </label>
+              <input type="text" name="ap_lo" required class="inputfield" />
+            </div>
 
-        if gluc == 'Normal':
-            gluc = 1
-        elif gluc == 'Above Normal':
-            gluc = 2
-        else:
-            gluc = 3
+            
+            <div class="fromdiv">
+              <label htmlFor="" class="">Select level of Cholesterol </label>
+              <select name="cholesterol" id="" class="selectfield" required>
+                  <option value="normal">Normal</option>
+                  <option value="above">Above Normal</option>
+                  <option value="well above normal">Well Above Normal</option>
+              </select>
+            </div>
+            <div class="fromdiv">
+              <label htmlFor="">Select Level of Gluocose </label>
+              <select name="gluc" id="" class="selectfield" required>
+                <option value="normal">Normal</option>
+                <option value="above">Above Normal</option>
+                <option value="well above normal">Well Above Normal</option>
+              </select>
+            </div>
+            <div class="fromdiv">
+                <label for="">Do you Smoke? </label>
+                <select name="smoke" class ="selectfield" type="text" required>
+                  <!-- <option disabled selected>Do you Smoke?</option> -->
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+            </div>
 
-        if smoke == 'Yes':
-            smoke = 1
-        else:
-            smoke = 0
+            <div class="fromdiv">
+                <label for="">Do you Drink Alcohol? </label>
+                <select name="alco" class ="selectfield" type="text" required>
+			            <!-- <option disabled selected>Do you Drink Alcohol?</option> -->
+                	    <option value="yes">Yes</option>
+                	    <option value="no">No</option>
+		          </select>
+            </div>
 
-        if alco == 'Yes':
-            alco = 1
-        else:
-            alco = 0
+            <div class="fromdiv">
+                <label for="">Do you Workout? </label>
+                <select name="active" class ="selectfield" type="text" required>
+			            <!-- <option disabled selected>Do you Workout?</option> -->
+                	<option value="yes">Yes</option>
+                	<option value="no">No</option>
+		          </select>
+            </div>
+          
+			<button class="button" type="submit" value="Predict"><span>Submit</span></button>
+        </form>
+	</div>
 
-        if active == 'Yes':
-            active = 1
-        else:
-            active = 0
+        <div class="img-style">
+<!--            <img src=".\cardiac.gif" class="images" alt="">-->
+            <img class="gif" src="{{ url_for('static', filename='cardiac.gif') }}" alt="Cardio_disease Image">
+        </div>
+    </div>
+</body>
 
-        data = np.array([[age, gender, height, weight, ap_hi, ap_lo, cholesterol, gluc, smoke, alco, active]])
-
-        data_s = scaler.transform(data)
-
-        my_prediction = classifier.predict(data_s)
-        return render_template('result.html', prediction=my_prediction)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
+</html>
