@@ -1,0 +1,132 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.header{
+    font-size: 4rem;
+    font-weight: 600;
+    /* color: #38BDF8; */
+    
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    
+    /* padding-bottom: 2rem; */
+}
+.container{
+    margin-top: 4rem;
+    width: 100%;
+    height: 60%;
+    /* border: 6px solid black; */
+    /* height: 90vh; */
+
+    display: flex;
+    flex-direction: row;
+    
+    
+}
+.form-style{
+   
+    width: 600px;
+    height: 100%;
+    padding-left: 6rem;
+    /* margin: 2rem; */
+    /* border: 5px solid black; */
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    /* font-size: .5rem; */
+    
+}
+.img-style{
+    width: 45%;
+    height: 45%;
+    margin: 2rem;
+    /* border: 5px solid black; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 3rem;
+    padding-top: 1rem;
+    position: relative;
+}
+.images{
+    height: 80%;
+    width: 90%;
+}
+
+.fromdiv{
+    padding-top: 1rem;
+    /* padding-bottom: 0.5rem; */
+    font-size: 1.2rem;
+    
+}
+
+.inputfield{
+    height: 2rem;
+    width: 8rem;
+
+    /* border: 2px solid black; */
+    border-radius: .5rem;
+    /* background-color:bisque; */
+
+    font-size: 1rem;
+    font-weight: 500;
+    padding-left: 1rem;
+}
+.selectfield{
+    height: 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border: 2px solid ;
+}
+.button{
+    font-size: 1.5rem;
+    
+    margin-left: 0;
+    width: 10rem;
+    height: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    border-radius: 5px;
+    background-color: blueviolet;
+    color:white ;
+    border: none;
+    font-weight: bold;
+
+}
+
+input[type=radio] {
+    border: 0px;
+    /* width: 100%; */
+    width: 5%;
+    height: 2em;
+}
+.button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .button:hover span {
+    padding-right: 25px;
+  }
+  
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+  h1{
+    font-size: 5rem;
+    color: black;
+    
+  }
