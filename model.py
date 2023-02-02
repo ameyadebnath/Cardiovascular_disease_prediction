@@ -14,7 +14,7 @@ import sklearn.metrics
 import pickle
 
 #importing the csv file
-data = pd.read_csv('G:/Project/AI/cardio_train.csv', delimiter=';')
+data = pd.read_csv('cardio_train.csv', delimiter=';')
 
 data.head()
 
