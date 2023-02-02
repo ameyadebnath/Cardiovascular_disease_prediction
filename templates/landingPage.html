@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="landingPage.css">
+
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='landingPage.css') }}">
+
     
     <title>Cardiovascular</title>
 </head>
@@ -15,6 +17,7 @@
         <div class="div1">
             <h1 class="header_1">Checki<span class="header_2">Fy</span></h1>
             <p1 class="para_1">Check your Cardiovascular diseases in a click</p1>
+
 <!--            <a href="file:///G:/AI%20Project/Cardiovascular_disease_prediction/templates/index.html">-->
             <a href="{{ url_for('form') }}">
             <button class="button" type="button"><span>Get Started</span></button>
@@ -24,6 +27,7 @@
         <div class="imgdiv">
 <!--            <img class="img_1"src="./heartbeat2.gif"/>-->
             <img class="gif" src="{{ url_for('static', filename='heartbeat2.gif') }}" alt="Cardio_disease Image">
+
         </div>
         
         

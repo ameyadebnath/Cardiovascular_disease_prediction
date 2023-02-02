@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./index.css">
+
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
+
 </head>
 <body>
  
@@ -39,29 +41,35 @@
               <div class="fromdiv">
                 <label htmlFor="">Enter Your Weight(in kg): </label>
                 <input type="text"  required name="weight" class="inputfield" />
+
               </div>
 
               <div class="fromdiv">
                 <label htmlFor="">Systolic Blood Pressure (upper number): </label>
+
                 <input type="text" name="ap_hi" required class="inputfield" />
               </div>
             <div class="fromdiv">
               <label htmlFor="">Disatolic Blood Pressure (lower number): </label>
               <input type="text" name="ap_lo" required class="inputfield" />
+
             </div>
 
             
             <div class="fromdiv">
               <label htmlFor="" class="">Select level of Cholesterol </label>
+
               <select name="cholesterol" id="" class="selectfield" required>
-                  <option value="normal">Normal</option>
+    <option value="normal">Normal</option>
                   <option value="above">Above Normal</option>
                   <option value="well above normal">Well Above Normal</option>
               </select>
             </div>
             <div class="fromdiv">
               <label htmlFor="">Select Level of Gluocose </label>
+
               <select name="gluc" id="" class="selectfield" required>
+
                 <option value="normal">Normal</option>
                 <option value="above">Above Normal</option>
                 <option value="well above normal">Well Above Normal</option>
@@ -69,7 +77,9 @@
             </div>
             <div class="fromdiv">
                 <label for="">Do you Smoke? </label>
+
                 <select name="smoke" class ="selectfield" type="text" required>
+
                   <!-- <option disabled selected>Do you Smoke?</option> -->
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
@@ -78,7 +88,9 @@
 
             <div class="fromdiv">
                 <label for="">Do you Drink Alcohol? </label>
+
                 <select name="alco" class ="selectfield" type="text" required>
+
 			            <!-- <option disabled selected>Do you Drink Alcohol?</option> -->
                 	    <option value="yes">Yes</option>
                 	    <option value="no">No</option>
@@ -87,13 +99,15 @@
 
             <div class="fromdiv">
                 <label for="">Do you Workout? </label>
+
                 <select name="active" class ="selectfield" type="text" required>
+
 			            <!-- <option disabled selected>Do you Workout?</option> -->
                 	<option value="yes">Yes</option>
                 	<option value="no">No</option>
 		          </select>
             </div>
-          
+
 			<button class="button" type="submit" value="Predict"><span>Submit</span></button>
         </form>
 	</div>
@@ -101,8 +115,10 @@
         <div class="img-style">
 <!--            <img src=".\cardiac.gif" class="images" alt="">-->
             <img class="gif" src="{{ url_for('static', filename='cardiac.gif') }}" alt="Cardio_disease Image">
+
         </div>
     </div>
 </body>
 
 </html>
+

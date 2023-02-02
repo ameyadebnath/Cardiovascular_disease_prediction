@@ -15,19 +15,21 @@
         <!-- Website Title -->
 		<div class="container">
             <h2 class='container-heading'><span class="heading_font">Cardiovascular disease Prediction</span></h2>
+
             <div class='description'>
     			
     		</div>
+
     	</div>
 
 		<!-- Result -->
 		<div class="results">
 			{% if prediction==1 %}
 				<h1>Prediction: <span class='danger'>Oops! You Might have Cardiovascular disease.</span></h1>
-				<img class="gif" src="{{ url_for('static', filename='cardiovascular.webp') }}" alt="Diabetes Image">
+				<img class="gif" src="{{ url_for('static', filename='cardiovascular.webp') }}" alt="Cardio_disease Image">
 			{% elif prediction==0 %}
 				<h1>Prediction: <span class='safe'>Great! You DON'T have Cardiovascular disease.</span></h1>
-				<img class="gif1" src="{{ url_for('static', filename='no_cardio_disease.webp') }}" alt="Not Diabetes Image">
+				<img class="gif1" src="{{ url_for('static', filename='no_cardio_disease.webp') }}" alt="No Cardio_disease Image">
 			{% endif %}
 		</div>
        
