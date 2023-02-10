@@ -1,8 +1,11 @@
 #importing packages
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn import metrics
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import RandomizedSearchCV
@@ -77,3 +80,21 @@ acc_log_test
 
 #save model as pickle
 pickle.dump(LR_optimal, open("classifier.pkl", "wb"))
+
+#confusion matrix
+
+dataset=pd.read_csv('cardio_train.csv', delimiter=';')
+#dataset
+x=pd.DataFrame(dataset.iloc[:,:-1])
+y=pd.DataFrame(dataset.iloc[:,-1])
+y_pred=LR_optimal.predict(x_test)
+
+# actual = np.random.binomial(1,.9,size = 1000)
+# predicted = np.random.binomial(1,.9,size = 1000)
+
+confusion_matrix = metrics.confusion_matrix(y_test,y_pred)
+
+cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix = confusion_matrix, display_labels = [False, True])
+
+cm_display.plot()
+plt.show()
